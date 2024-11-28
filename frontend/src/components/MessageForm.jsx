@@ -11,26 +11,33 @@ const MessageForm = () => {
 
   const handleMessage = async (e) => {
     e.preventDefault();
+
+    // Basic validation to check if required fields are filled
+    if (!firstName || !lastName || !email || !message) {
+      toast.error("All fields are required!");
+      return;
+    }
+
     try {
-      await axios
-        .post(
-          "http://localhost:4000/api/v1/message/send",
-          { firstName, lastName, email, phone, message },
-          {
-            withCredentials: true,
-            headers: { "Content-Type": "application/json" },
-          }
-        )
-        .then((res) => {
-          toast.success(res.data.message);
-          setFirstName("");
-          setLastName("");
-          setEmail("");
-          setPhone("");
-          setMessage("");
-        });
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/message/send",
+        { firstName, lastName, email, phone, message },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      // If the request is successful, show a success message and reset the form
+      toast.success(response.data.message);
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPhone("");
+      setMessage("");
     } catch (error) {
-      toast.error(error.response.data.message);
+      // If there is an error, log it and show a user-friendly message
+      console.error("Error:", error.response ? error.response.data : error);
+      toast.error(error.response ? error.response.data.message : "An error occurred while sending the message.");
     }
   };
 

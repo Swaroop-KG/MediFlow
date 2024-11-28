@@ -20,31 +20,44 @@ const Register = () => {
 
   const handleRegistration = async (e) => {
     e.preventDefault();
+
+    // Basic validation before submitting the form
+    if (!firstName || !lastName || !email || !phone || !nic || !dob || !gender || !password) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    // Log the data being sent
+    console.log({ firstName, lastName, email, phone, nic, dob, gender, password });
+
     try {
-      await axios
-        .post(
-          "http://localhost:4000/api/v1/user/patient/register",
-          { firstName, lastName, email, phone, nic, dob, gender, password },
-          {
-            withCredentials: true,
-            headers: { "Content-Type": "application/json" },
-          }
-        )
-        .then((res) => {
-          toast.success(res.data.message);
-          setIsAuthenticated(true);
-          navigateTo("/");
-          setFirstName("");
-          setLastName("");
-          setEmail("");
-          setPhone("");
-          setNic("");
-          setDob("");
-          setGender("");
-          setPassword("");
-        });
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/user/patient/register",
+        { firstName, lastName, email, phone, nic, dob, gender, password },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      // Handle success response
+      toast.success(response.data.message);
+      setIsAuthenticated(true);
+      navigateTo("/");
+      
+      // Reset form fields after successful registration
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPhone("");
+      setNic("");
+      setDob("");
+      setGender("");
+      setPassword("");
     } catch (error) {
-      toast.error(error.response.data.message);
+      // Log and display detailed error message
+      console.error(error.response ? error.response.data : error);
+      toast.error(error.response?.data?.message || "Something went wrong");
     }
   };
 
@@ -55,7 +68,7 @@ const Register = () => {
   return (
     <>
       <div className="container form-component register-form">
-        <h2>   Sign Up</h2>
+        <h2>Sign Up</h2>
         <p>Please Sign Up To Continue</p>
         <form onSubmit={handleRegistration}>
           <div>
@@ -94,7 +107,7 @@ const Register = () => {
               onChange={(e) => setNic(e.target.value)}
             />
             <input
-              type={"date"}
+              type="date"
               placeholder="Date of Birth"
               value={dob}
               onChange={(e) => setDob(e.target.value)}
@@ -122,7 +135,7 @@ const Register = () => {
           >
             <p style={{ marginBottom: 0 }}>Already Registered?</p>
             <Link
-              to={"/"}
+              to={"/login"}
               style={{ textDecoration: "none", color: "#271776ca" }}
             >
               Login Now
