@@ -8,11 +8,11 @@ import { errorMiddleware } from "./middlewares/error.js";
 import messageRouter from "./router/messageRouter.js";
 import userRouter from "./router/userRouter.js";
 import appointmentRouter from "./router/appointmentRouter.js";
-import path from 'path';
+
 
 const app = express();
 config({ path: "./config/config.env" });
-const __dirname = path.resolve();
+
 
 
 app.get('*', (req, res) => {
@@ -45,9 +45,6 @@ app.use("/api/v1/appointment", appointmentRouter);
 
 dbConnection();
 
-app.use(express.static(path.join(__dirname, '/frontend/dist')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
-});
+
 app.use(errorMiddleware);
 export default app;
