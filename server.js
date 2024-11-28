@@ -1,6 +1,13 @@
 import app from "./app.js";
 import cloudinary from "cloudinary";
+import path from 'path';
 
+const __dirname = path.resolve();
+
+app.use(express.static(path.join(__dirname, '/frontend/dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
+});
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
