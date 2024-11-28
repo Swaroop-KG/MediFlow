@@ -1,0 +1,46 @@
+[
+    {
+      "hospitalName": "Appolo Hospital",
+      "totalBeds": 100,
+      "availableBeds": 20,
+      "location": "Jayanagar"
+    },
+    {
+      "hospitalName": "KC General",
+      "totalBeds": 150,
+      "availableBeds": 45,
+      "location": "Malleswaram"
+    },
+    {
+      "hospitalName": "Manipal Hospital ",
+      "totalBeds": 100,
+      "availableBeds": 35,
+      "location": "Varthur Road"
+    },
+    {
+      "hospitalName": "Motherhood Hospital",
+      "totalBeds": 110,
+      "availableBeds": 35,
+      "location": "Whitefield"
+    },
+    {
+      "hospitalName": "Fortis Hospital ",
+      "totalBeds": 110,
+      "availableBeds": 35,
+      "location": "Cunningham Road"
+    },
+    {
+      "hospitalName": "Manipal Hospital",
+      "totalBeds": 110,
+      "availableBeds": 35,
+      "location": "Yeshwanthpur"
+    },
+    {
+      "hospitalName": "Ramaiah Memorial Hospital",
+      "totalBeds": 110,
+      "availableBeds": 35,
+      "location": "M S Ramaiah Nagar"
+    }
+
+  ]
+  
