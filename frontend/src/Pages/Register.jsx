@@ -20,34 +20,46 @@ const Register = () => {
 
   const handleRegistration = async (e) => {
     e.preventDefault();
+
+    // Basic validation before submitting the form
+    if (!firstName || !lastName || !email || !phone || !nic || !dob || !gender || !password) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    // Log the data being sent
+    console.log({ firstName, lastName, email, phone, nic, dob, gender, password });
+
     try {
-      await axios
-        .post(
-          "http://localhost:4000/api/v1/user/patient/register",
-          { firstName, lastName, email, phone, nic, dob, gender, password },
-          {
-            withCredentials: true,
-            headers: { "Content-Type": "application/json" },
-          }
-        )
-        .then((res) => {
-          toast.success(res.data.message);
-          setIsAuthenticated(true);
-          navigateTo("/");
-          setFirstName("");
-          setLastName("");
-          setEmail("");
-          setPhone("");
-          setNic("");
-          setDob("");
-          setGender("");
-          setPassword("");
-        });
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/user/patient/register",
+        { firstName, lastName, email, phone, nic, dob, gender, password },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      // Handle success response
+      toast.success(response.data.message);
+      setIsAuthenticated(true);
+      navigateTo("/");
+      
+      // Reset form fields after successful registration
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPhone("");
+      setNic("");
+      setDob("");
+      setGender("");
+      setPassword("");
     } catch (error) {
-      toast.error(error.response.data.message);
+
+      
+      toast.error(error.response?.data?.message || "Something went wrong");
     }
   };
-
 
   if (isAuthenticated) {
     return <Navigate to={"/"} />;

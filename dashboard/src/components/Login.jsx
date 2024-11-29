@@ -48,7 +48,7 @@ const Login = () => {
       <img src="logo.png" alt="Logo" style={{ width: "200px", height: "200px", }} />
 
         
-        <h1 className="form-title">WELCOME TO ZEECARE</h1>
+        <h1 className="form-title">WELCOME TO Mediflow</h1>
         <p>Only Admins Are Allowed To Access These Resources!</p>
         <form onSubmit={handleLogin}>
           <input

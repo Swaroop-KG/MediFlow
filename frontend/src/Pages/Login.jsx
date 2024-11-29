@@ -1,15 +1,15 @@
-﻿import axios from "axios";
-import React, { useContext, useState } from "react";
+﻿import React, { useContext, useState } from "react";
+import {Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Context } from "../main";
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
-  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
 
   const navigateTo = useNavigate();
 
@@ -44,9 +44,11 @@ const Login = () => {
 
   return (
     <>
-      <div className="container form-component login-form">
-        <h2>Sign In</h2>
-        <p>Please Login To Continue</p>
+      <section className="container form-component logo mt-10 ">
+      <img src="logo.png" alt="Logo" style={{ width: "200px", height: "200px", }} />
+
+        
+        <h1 className="form-title">WELCOME TO Mediflow SignIn</h1>
         
         <form onSubmit={handleLogin}>
           <input
@@ -67,7 +69,7 @@ const Login = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <div
+           <div
             style={{
               gap: "10px",
               justifyContent: "flex-end",
@@ -81,17 +83,17 @@ const Login = () => {
             >
               Register Now
             </Link>
-          </div>
+            </div>
+          
           <div style={{ justifyContent: "center", alignItems: "center" }}>
             <button type="submit">Login</button>
-    
-
           </div>
           <a href="http://localhost:5174/login" target="_blank" rel="noopener noreferrer">
     Go to Admin Dashboard
 </a>
+         
         </form>
-      </div>
+      </section>
     </>
   );
 };
