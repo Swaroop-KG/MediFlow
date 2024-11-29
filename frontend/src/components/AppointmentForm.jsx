@@ -37,12 +37,15 @@ const AppointmentForm = () => {
           "http://localhost:4000/api/v1/user/doctors",
           { withCredentials: true }
         );
+       // Log the data to see the response
         setDoctors(data.doctors);
       } catch (error) {
-        console.error("Error fetching doctors:", error);
+        console.error("Error fetching doctors:", error); // More detailed error logging
         toast.error("Failed to fetch doctors.");
       }
     };
+    
+    
     fetchDoctors();
   }, []);
 
