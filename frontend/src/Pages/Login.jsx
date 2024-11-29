@@ -15,26 +15,42 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+  
+    if (!email || !password || !confirmPassword) {
+      toast.error("All fields are required.");
+      return;
+    }
+  
     try {
-      await axios
-        .post(
-          "http://localhost:4000/api/v1/user/login",
-          { email, password, confirmPassword, role: "Patient" },
-          {
-            withCredentials: true,
-            headers: { "Content-Type": "application/json" },
-          }
-        )
-        .then((res) => {
-          toast.success(res.data.message);
-          setIsAuthenticated(true);
-          navigateTo("/");
-          setEmail("");
-          setPassword("");
-          setConfirmPassword("");
-        });
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/user/login",
+        { email, password, confirmPassword, role: "Patient" },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+  
+      // Log the response for debugging
+      console.log("API Response:", response);
+  
+      // Success
+      toast.success(response.data.message);
+      setIsAuthenticated(true);
+      navigateTo("/");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
     } catch (error) {
-      toast.error(error.response.data.message);
+      // Check for structured error response
+      if (error.response && error.response.data) {
+        console.error("API Error:", error.response.data);
+        toast.error(error.response.data.message || "Something went wrong.");
+      } else {
+        // Generic error
+        console.error("Error:", error);
+        toast.error("An unexpected error occurred. Please try again.");
+      }
     }
   };
 
