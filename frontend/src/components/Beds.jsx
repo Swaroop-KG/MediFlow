@@ -8,7 +8,7 @@ const Beds = () => {
   useEffect(() => {
 
     const fetchBeds = async () => {
-      const response = await fetch('../public/hospital-beds.json'); 
+      const response = await fetch('/hospital-beds.json'); 
       const data = await response.json();
       setBeds(data);
     };
